@@ -33,7 +33,7 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
 | Option        | Default                                    | Description |
 |---------------|--------------------------------------------|-------------|
 | `light`       | `false`                                    | Light-use machine: enable `light_langs` only |
-| `langs`       | lua, bash, python, rust, cpp, go, typescript, web, data | Language groups (AstroCommunity packs) |
+| `langs`       | lua, bash, python, rust, cpp, typescript, web, data | Language groups (AstroCommunity packs); `go` is available but off by default |
 | `light_langs` | lua, python, web, data                     | Language groups on light machines |
 | `at_edge`     | `"stop"`                                   | smart-splits edge behavior; must match `tmux.conf` |
 
@@ -61,3 +61,7 @@ dev = { path = "/path/to/parent/dir", fallback = true }
 ```
 
 Format with [StyLua](https://github.com/JohnnyMorganz/StyLua).
+
+## License
+
+[MIT](LICENSE)

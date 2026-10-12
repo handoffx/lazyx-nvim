@@ -9,13 +9,15 @@ local M = {}
 ---@field at_edge "stop"|"wrap"|"split" smart-splits edge behavior, must match tmux.conf
 M.defaults = {
   light = false,
-  langs = { "lua", "bash", "python", "rust", "cpp", "go", "typescript", "web", "data" },
+  langs = { "lua", "bash", "python", "rust", "cpp", "typescript", "web", "data" },
   light_langs = { "lua", "python", "web", "data" },
   at_edge = "stop",
 }
 
 ---@return LazyxConfig
-function M.get() return vim.tbl_deep_extend("force", M.defaults, vim.g.lazyx or {}) end
+-- Shallow merge: list options such as `langs` replace the defaults instead of
+-- being merged index by index.
+function M.get() return vim.tbl_extend("force", M.defaults, vim.g.lazyx or {}) end
 
 ---@return string[]
 function M.langs()
