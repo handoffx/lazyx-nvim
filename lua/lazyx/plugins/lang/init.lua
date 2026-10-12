@@ -4,4 +4,5 @@
 ---@type LazySpec
 return {
   { import = "lazyx.plugins.lang.python" },
+  { import = "lazyx.plugins.lang.cpp" },
 }

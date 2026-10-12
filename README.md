@@ -53,6 +53,10 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
   basedpyright runs in `standard` mode and owns types; ruff owns lint (unused imports / variables are
   reported once, by ruff). On save: ruff organize imports, then ruff format.
   On Debian, Mason needs `python3-venv` to install PyPI-based tools.
+- **Rust**: rustaceanvim with rust-analyzer from rustup (`rustup component add rust-analyzer`), not Mason.
+  Debugging uses Mason's codelldb.
+- **C / C++**: clangd. "Switch source/header" moves from `<Leader>lw` to `<Leader>lo`, so the pack no
+  longer shadows AstroNvim's workspace diagnostics.
 - **Rounded borders**: toggleterm floats use rounded borders like every other float.
 - **Clipboard**: OSC 52 over SSH.
 
