@@ -50,6 +50,8 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
 - **Python**: basedpyright + ruff (lint and format) + debugpy, instead of the pack's black + isort.
   basedpyright resolves the interpreter from `$VIRTUAL_ENV` / `$CONDA_PREFIX`, then `<root>/.venv` or
   `<root>/venv`, then `python3` / `python` on `PATH` (the pack only looks for `python`).
+  basedpyright runs in `standard` mode and owns types; ruff owns lint (unused imports / variables are
+  reported once, by ruff). On save: ruff organize imports, then ruff format.
   On Debian, Mason needs `python3-venv` to install PyPI-based tools.
 - **Rounded borders**: toggleterm floats use rounded borders like every other float.
 - **Clipboard**: OSC 52 over SSH.

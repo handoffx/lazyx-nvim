@@ -1,7 +1,9 @@
--- Python: resolve the interpreter for basedpyright.
+-- Python on top of the AstroCommunity pack (base + basedpyright + ruff):
+-- - basedpyright: interpreter resolution, "standard" type checking, types only
+-- - ruff: lint, format, organize imports on save
 --
--- The AstroCommunity pack uses `exepath("python")`, which is empty on Debian
--- and Homebrew where only `python3` exists, and ignores project virtualenvs.
+-- The pack uses `exepath("python")`, which is empty on Debian and Homebrew
+-- where only `python3` exists, and ignores project virtualenvs.
 
 local is_win = vim.fn.has "win32" == 1
 
@@ -31,6 +33,23 @@ local function python_path(root)
   return "python3"
 end
 
+--- Apply ruff's organize-imports code action synchronously
+---@param client vim.lsp.Client
+---@param bufnr integer
+local function organize_imports(client, bufnr)
+  local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+  ---@diagnostic disable-next-line: inject-field
+  params.context = { only = { "source.organizeImports.ruff" }, diagnostics = {} }
+  local res = client:request_sync("textDocument/codeAction", params, 1000, bufnr)
+  for _, action in ipairs(res and res.result or {}) do
+    if not action.edit and client:supports_method("codeAction/resolve", bufnr) then
+      local resolved = client:request_sync("codeAction/resolve", action, 1000, bufnr)
+      action = resolved and resolved.result or action
+    end
+    if action.edit then vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding) end
+  end
+end
+
 if not vim.tbl_contains(require("lazyx.config").langs(), "python") then return {} end
 
 ---@type LazySpec
@@ -47,6 +66,38 @@ return {
             config.settings.python = config.settings.python or {}
             config.settings.python.pythonPath = python_path(config.root_dir)
           end,
+          settings = {
+            basedpyright = {
+              analysis = {
+                -- pyproject.toml [tool.basedpyright] still takes precedence
+                typeCheckingMode = "standard",
+                diagnosticSeverityOverrides = {
+                  -- ruff reports these (F401, F841)
+                  reportUnusedImport = "none",
+                  reportUnusedVariable = "none",
+                  -- the pack silences these; restore the "standard" defaults
+                  reportGeneralTypeIssues = "error",
+                  reportOptionalMemberAccess = "error",
+                  reportOptionalSubscript = "error",
+                  reportPrivateImportUsage = "error",
+                },
+              },
+            },
+          },
+        },
+      },
+      autocmds = {
+        -- Runs before AstroLSP's format-on-save in the same BufWritePre
+        lazyx_ruff_organize_imports = {
+          cond = function(client) return client.name == "ruff" end,
+          {
+            event = "BufWritePre",
+            desc = "Organize imports with ruff",
+            callback = function(args)
+              local client = vim.lsp.get_clients({ bufnr = args.buf, name = "ruff" })[1]
+              if client then organize_imports(client, args.buf) end
+            end,
+          },
         },
       },
     },
