@@ -47,6 +47,9 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
   surface0 body, rounded ends) on a transparent bar, the same style as the tmux status line.
   Statusline: mode, git branch + diff, file, diagnostics, macro/search count, LSP clients, position.
   Bodies reuse AstroUI components, so click handlers and the buffer picker keep working.
+- **Lua**: one formatter, stylua through none-ls. The `stylua --lsp` server that mason-lspconfig
+  would auto-enable and lua_ls's own formatter are turned off. Files without a project
+  `stylua.toml` use the global `~/.config/stylua/stylua.toml` (shipped by the dotfiles).
 - **Python**: basedpyright + ruff (lint and format) + debugpy, instead of the pack's black + isort.
   basedpyright resolves the interpreter from `$VIRTUAL_ENV` / `$CONDA_PREFIX`, then `<root>/.venv` or
   `<root>/venv`, then `python3` / `python` on `PATH` (the pack only looks for `python`).
