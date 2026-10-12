@@ -61,6 +61,10 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
 - **C / C++**: clangd, formatting with WebKit style (4-space indents) when the project has no
   `.clang-format`. "Switch source/header" moves from `<Leader>lw` to `<Leader>lo`, so the pack no
   longer shadows AstroNvim's workspace diagnostics.
+- **TypeScript / JavaScript**: vtsls, plus Node debugging. The pack installs js-debug-adapter but
+  mason-nvim-dap has no mapping for it, so lazyx registers the `pwa-node` adapter (and `node` for
+  VS Code launch.json files) with "Launch file" / "Attach to process" configurations. Node >= 23
+  runs `.ts` files directly.
 - **Rounded borders**: toggleterm floats use rounded borders like every other float.
 - **Clipboard**: OSC 52 over SSH.
 

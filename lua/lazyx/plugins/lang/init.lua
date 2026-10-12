@@ -6,4 +6,5 @@ return {
   { import = "lazyx.plugins.lang.lua" },
   { import = "lazyx.plugins.lang.python" },
   { import = "lazyx.plugins.lang.cpp" },
+  { import = "lazyx.plugins.lang.typescript" },
 }
