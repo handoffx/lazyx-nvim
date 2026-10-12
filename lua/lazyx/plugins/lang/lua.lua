@@ -13,10 +13,13 @@ return {
   {
     "AstroNvim/astrolsp",
     optional = true,
-    ---@type AstroLSPOpts
-    opts = {
-      handlers = { stylua = false },
-      formatting = { disabled = { "lua_ls" } },
-    },
+    ---@param opts AstroLSPOpts
+    opts = function(_, opts)
+      opts.handlers = opts.handlers or {}
+      opts.handlers.stylua = false
+      -- append: a table value would replace other modules' entries index by index
+      opts.formatting = opts.formatting or {}
+      opts.formatting.disabled = require("astrocore").list_insert_unique(opts.formatting.disabled or {}, { "lua_ls" })
+    end,
   },
 }

@@ -65,6 +65,9 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
   mason-nvim-dap has no mapping for it, so lazyx registers the `pwa-node` adapter (and `node` for
   VS Code launch.json files) with "Launch file" / "Attach to process" configurations. Node >= 23
   runs `.ts` files directly.
+  Prettier (prettierd) and ESLint are enabled per project: prettierd only runs when the project has a
+  prettier config (or a `"prettier"` key in package.json) and is then the only formatter for that
+  buffer; ESLint lints only (its formatter is off).
 - **Rounded borders**: toggleterm floats use rounded borders like every other float.
 - **Clipboard**: OSC 52 over SSH.
 

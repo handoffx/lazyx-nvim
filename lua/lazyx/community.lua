@@ -10,7 +10,7 @@ local packs = {
   rust = { "rust" },
   cpp = { "cpp", "cmake" },
   go = { "go" },
-  typescript = { "typescript" },
+  typescript = { "typescript", "prettier", "eslint" },
   web = { "html-css" },
   data = { "json", "yaml", "toml", "markdown" },
 }
