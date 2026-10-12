@@ -1,0 +1,7 @@
+-- Per-language overrides on top of the AstroCommunity packs.
+-- Each module returns an empty spec when its language group is disabled.
+
+---@type LazySpec
+return {
+  { import = "lazyx.plugins.lang.python" },
+}

@@ -47,6 +47,10 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
   surface0 body, rounded ends) on a transparent bar, the same style as the tmux status line.
   Statusline: mode, git branch + diff, file, diagnostics, macro/search count, LSP clients, position.
   Bodies reuse AstroUI components, so click handlers and the buffer picker keep working.
+- **Python**: basedpyright + ruff (lint and format) + debugpy, instead of the pack's black + isort.
+  basedpyright resolves the interpreter from `$VIRTUAL_ENV` / `$CONDA_PREFIX`, then `<root>/.venv` or
+  `<root>/venv`, then `python3` / `python` on `PATH` (the pack only looks for `python`).
+  On Debian, Mason needs `python3-venv` to install PyPI-based tools.
 - **Rounded borders**: toggleterm floats use rounded borders like every other float.
 - **Clipboard**: OSC 52 over SSH.
 
