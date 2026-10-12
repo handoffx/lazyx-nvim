@@ -43,6 +43,11 @@ A complete entry config lives in [handoffx/dotfiles](https://github.com/handoffx
   Loaded at startup so tmux always knows when a pane runs Neovim.
   `<C-hjkl>` moves, `<M-hjkl>` resizes (arrow-key resizing is removed) — same keys as tmux.
 - **Colorscheme**: Catppuccin Mocha (`catppuccin-mocha`), matching WezTerm and the tmux status line.
+- **Capsule UI**: statusline and bufferline are rebuilt as two-tone capsules (colored icon segment +
+  surface0 body, rounded ends) on a transparent bar, the same style as the tmux status line.
+  Statusline: mode, git branch + diff, file, diagnostics, macro/search count, LSP clients, position.
+  Bodies reuse AstroUI components, so click handlers and the buffer picker keep working.
+- **Rounded borders**: toggleterm floats use rounded borders like every other float.
 - **Clipboard**: OSC 52 over SSH.
 
 ## Development

@@ -9,6 +9,13 @@ return {
     name = "catppuccin",
     opts = { flavour = "mocha" },
   },
+  -- Rounded borders everywhere: most floats follow 'winborder' (AstroNvim sets
+  -- "rounded"); toggleterm defaults to "single".
+  {
+    "akinsho/toggleterm.nvim",
+    optional = true,
+    opts = { float_opts = { border = "rounded" } },
+  },
   {
     "AstroNvim/astroui",
     ---@type AstroUIOpts
